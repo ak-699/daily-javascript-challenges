@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Implement a Debounce Function</title>
+</head>
+<body>
+    <input type="text" placeholder="Type Something..." id="input-field">
+    <p class="debounced-text"></p>
+    <script>
+        function logInput() {
+            let log = document.querySelector("#input-field").value
+            console.log(log)
+            document.querySelector(".debounced-text").innerText = log;
+        }
+
+        function debounce(func, wait) {
+            let timerId = null;
+            return (...args) => {
+                if (timerId) clearTimeout(timerId);
+                timerId = setTimeout(() => {
+                    func(...args);
+                }, wait);
+            }
+        }
+
+        let debouncedLogInput = debounce(logInput, 500);
+
+        document.querySelector("#input-field").addEventListener("input", debouncedLogInput)
+    </script>
+</body>
+</html>
